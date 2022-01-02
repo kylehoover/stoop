@@ -1,0 +1,11 @@
+{
+  "name": "stoop",
+  "packageManager": "yarn@3.1.1",
+  "workspaces": [
+    "server"
+  ],
+  "devDependencies": {
+    "prettier": "2.5.1",
+    "typescript": "^4.5.4"
+  }
+}

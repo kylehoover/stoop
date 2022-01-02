@@ -1,0 +1,7 @@
+# Ignore artifacts:
+build
+coverage
+
+.pnp.cjs
+.yarn
+tsconfig.json
