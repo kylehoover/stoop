@@ -1,0 +1,1 @@
+export { BirdModel } from "./schema";

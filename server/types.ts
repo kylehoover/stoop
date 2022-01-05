@@ -18,22 +18,22 @@ export interface ITake {
   prey: string;
 }
 
-export interface ISlipInfo {
-  direction: SlipDirection;
-  flockEngagement: FlockEngagement;
+export interface ISlip {
+  direction?: SlipDirection;
+  flockEngagement?: FlockEngagement;
   takes: ITake[];
 }
 
 export interface IEntry {
-  dateTime: string;
+  dateTime: Date;
   notes: string;
   sessionType?: SessionType;
-  slipInfo?: ISlipInfo;
+  slip?: ISlip;
   weight: number;
 }
 
 export interface ITarget {
-  dateTime: string;
+  dateTime: Date;
   weight: number;
 }
 
@@ -45,5 +45,8 @@ export interface IBird {
 }
 
 export const MAX_BIRD_NAME_LENGTH = 50;
-
-export const MAX_BIRD_SPECIES_LENGTH = 50;
+export const MAX_NOTES_LENGTH = 250;
+export const MAX_NUM_TAKES = 100;
+export const MAX_PREY_LENGTH = 50;
+export const MAX_SPECIES_LENGTH = 50;
+export const MAX_WEIGHT = 20000;
