@@ -24,25 +24,37 @@ export interface ISlip {
   takes: ITake[];
 }
 
-export interface IEntry {
-  dateTime: Date;
+export interface IEntryBase<TDateTime> {
+  dateTime: TDateTime;
   notes: string;
   sessionType?: SessionType;
   slip?: ISlip;
   weight: number;
 }
 
-export interface ITarget {
-  dateTime: Date;
+export interface IEntryModel extends IEntryBase<Date> {}
+
+export interface IEntry extends IEntryBase<string> {}
+
+export interface ITargetBase<TDateTime> {
+  dateTime: TDateTime;
   weight: number;
 }
 
-export interface IBird {
-  entries: IEntry[];
+export interface ITargetModel extends ITargetBase<Date> {}
+
+export interface ITarget extends ITargetBase<string> {}
+
+export interface IBirdBase<TEntry, TTarget> {
+  entries: TEntry[];
   name: string;
   species: string;
-  target?: ITarget;
+  target?: TTarget;
 }
+
+export interface IBirdModel extends IBirdBase<IEntryModel, ITargetModel> {}
+
+export interface IBird extends IBirdBase<IEntry, ITarget> {}
 
 export const MAX_BIRD_NAME_LENGTH = 50;
 export const MAX_NOTES_LENGTH = 250;

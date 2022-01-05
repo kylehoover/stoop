@@ -1,16 +1,16 @@
 import { model, Schema } from "mongoose";
 import {
   flockEngagementTypes,
-  IBird,
+  IBirdModel,
   ISlip,
   ITake,
-  ITarget,
+  ITargetModel,
   MAX_BIRD_NAME_LENGTH,
   MAX_SPECIES_LENGTH,
   MAX_NUM_TAKES,
   MAX_PREY_LENGTH,
   slipDirections,
-  IEntry,
+  IEntryModel,
   MAX_NOTES_LENGTH,
   sessionTypes,
   MAX_WEIGHT,
@@ -47,7 +47,7 @@ const slipSchema = new Schema<ISlip>({
   },
 });
 
-const entrySchema = new Schema<IEntry>({
+const entrySchema = new Schema<IEntryModel>({
   dateTime: {
     type: Date,
     required: true,
@@ -71,7 +71,7 @@ const entrySchema = new Schema<IEntry>({
   },
 });
 
-const targetSchema = new Schema<ITarget>({
+const targetSchema = new Schema<ITargetModel>({
   dateTime: {
     type: Date,
     required: true,
@@ -84,7 +84,7 @@ const targetSchema = new Schema<ITarget>({
   },
 });
 
-const birdSchema = new Schema<IBird>(
+const birdSchema = new Schema<IBirdModel>(
   {
     entries: {
       type: [entrySchema],
