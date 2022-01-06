@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export interface IModel {
   id: string;
   createdAt: string;
@@ -45,16 +47,28 @@ export interface ITargetModel extends ITargetBase<Date> {}
 
 export interface ITarget extends ITargetBase<string> {}
 
-export interface IBirdBase<TEntry, TTarget> {
-  entries: TEntry[];
+export interface IBirdBase<TTarget> {
   name: string;
   species: string;
   target?: TTarget;
+  // TODO: property for picture path
 }
 
-export interface IBirdModel extends IBirdBase<IEntryModel, ITargetModel> {}
+export interface IBirdBaseWithEntries<TEntry, TTarget> extends IBirdBase<TTarget> {
+  entries: TEntry[];
+}
 
-export interface IBird extends IBirdBase<IEntry, ITarget> {}
+export interface IBirdPreviewModel extends IBirdBase<ITargetModel> {}
+
+export interface IBirdModel extends IBirdBaseWithEntries<IEntryModel, ITargetModel> {}
+
+export interface IBirdPreview extends IBirdBase<ITarget> {
+  id: string;
+}
+
+export interface IBird extends IBirdBaseWithEntries<IEntry, ITarget> {
+  id: string;
+}
 
 export const MAX_BIRD_NAME_LENGTH = 50;
 export const MAX_NOTES_LENGTH = 250;
