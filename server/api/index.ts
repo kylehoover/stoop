@@ -1,1 +1,1 @@
-export * from "./birds";
+export * from "./birdRoutes";
