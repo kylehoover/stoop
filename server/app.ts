@@ -16,9 +16,10 @@ async function run() {
   app.use("/api", birdRoutes);
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    const clientMessage = err?.clientMessage ?? "Unknown error";
     const message = err?.message ?? "Unknown error";
-    console.error("ERROR:", message);
-    res.status(500).send({ error: { message: message } });
+    console.log("ERROR:", message);
+    res.status(500).send({ error: { message: clientMessage } });
   });
 
   app.listen(8001, () => {

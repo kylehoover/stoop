@@ -9,8 +9,8 @@ export function transformLeanDoc(doc: LeanDocument<Document>): any {
   };
 }
 
-export function transformDoc(doc: Document): any {
-  return transformLeanDoc(doc.toObject());
+export function transformDoc(doc: Document | null): any {
+  return doc ? transformLeanDoc(doc.toObject()) : null;
 }
 
 export function transformDocs(docs: Document[]): any[] {
