@@ -2,6 +2,7 @@
   "name": "stoop",
   "packageManager": "yarn@3.1.1",
   "workspaces": [
+    "client",
     "server"
   ],
   "devDependencies": {
