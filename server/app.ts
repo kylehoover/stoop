@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express, { NextFunction, Request, Response } from "express";
+import formidable from "express-formidable";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import { BirdModel } from "./db";
@@ -12,6 +13,7 @@ async function run() {
   app.use(morgan("tiny"));
 
   app.use(bodyParser.json());
+  app.use(formidable());
 
   app.use("/api", birdRoutes);
 

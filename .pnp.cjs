@@ -4237,6 +4237,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/express-formidable", [
+        ["npm:1.2.0", {
+          "packageLocation": "./.yarn/cache/@types-express-formidable-npm-1.2.0-e59f2aaa82-13c0aea17c.zip/node_modules/@types/express-formidable/",
+          "packageDependencies": [
+            ["@types/express-formidable", "npm:1.2.0"],
+            ["@types/express", "npm:4.17.13"],
+            ["@types/formidable", "npm:2.0.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/express-serve-static-core", [
         ["npm:4.17.27", {
           "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.27-a6c300c8eb-fef52b941f.zip/node_modules/@types/express-serve-static-core/",
@@ -4245,6 +4256,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.6"],
             ["@types/qs", "npm:6.9.7"],
             ["@types/range-parser", "npm:1.2.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/formidable", [
+        ["npm:2.0.3", {
+          "packageLocation": "./.yarn/cache/@types-formidable-npm-2.0.3-9ce3c97e44-dd3e0be4cd.zip/node_modules/@types/formidable/",
+          "packageDependencies": [
+            ["@types/formidable", "npm:2.0.3"],
+            ["@types/node", "npm:17.0.6"]
           ],
           "linkType": "HARD",
         }]
@@ -5556,6 +5577,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["axios", [
+        ["npm:0.24.0", {
+          "packageLocation": "./.yarn/cache/axios-npm-0.24.0-39e5c1e79e-468cf496c0.zip/node_modules/axios/",
+          "packageDependencies": [
+            ["axios", "npm:0.24.0"],
+            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["axobject-query", [
         ["npm:2.2.0", {
           "packageLocation": "./.yarn/cache/axobject-query-npm-2.2.0-6553738f52-96b8c7d807.zip/node_modules/axobject-query/",
@@ -6389,8 +6420,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:16.11.19"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-dom", "npm:17.0.11"],
+            ["axios", "npm:0.24.0"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:17.0.2"],
+            ["react-hook-form", "virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:7.22.5"],
             ["react-router-dom", "virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:6.2.1"],
             ["react-scripts", "virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:5.0.0"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"],
@@ -8544,6 +8577,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["express-formidable", [
+        ["npm:1.2.0", {
+          "packageLocation": "./.yarn/cache/express-formidable-npm-1.2.0-7e301afd29-a1bce48f4c.zip/node_modules/express-formidable/",
+          "packageDependencies": [
+            ["express-formidable", "npm:1.2.0"],
+            ["formidable", "npm:1.2.6"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["fast-deep-equal", [
         ["npm:3.1.3", {
           "packageLocation": "./.yarn/cache/fast-deep-equal-npm-3.1.3-790edcfcf5-e21a9d8d84.zip/node_modules/fast-deep-equal/",
@@ -8779,6 +8822,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
+        ["npm:1.14.7", {
+          "packageLocation": "./.yarn/cache/follow-redirects-npm-1.14.7-c87c16ed59-f6d03e5e30.zip/node_modules/follow-redirects/",
+          "packageDependencies": [
+            ["follow-redirects", "npm:1.14.7"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7", {
+          "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-833d276bdc/0/cache/follow-redirects-npm-1.14.7-c87c16ed59-f6d03e5e30.zip/node_modules/follow-redirects/",
+          "packageDependencies": [
+            ["follow-redirects", "virtual:39e5c1e79ea63134f0cf339f4463df92854aaf708a45210afd29a0b4b9f67f95b34a1abbcabaae6d0033ad99a1d5f690ab51ed8e5d3283b87ccbc3a9ab3ec05f#npm:1.14.7"],
+            ["@types/debug", null],
+            ["debug", null]
+          ],
+          "packagePeers": [
+            "@types/debug",
+            "debug"
+          ],
+          "linkType": "HARD",
+        }],
         ["virtual:a313c479c5c7e54d9ec8fbeeea69ff640f56b8989ea2dff42351a3fa5c4061fb80a52d8ede0f0826a181a216820c2d2c3f15da881e7fdf31cef1c446e42f0c45#npm:1.14.6", {
           "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-e29a744642/0/cache/follow-redirects-npm-1.14.6-0483823f49-7fcdb089a7.zip/node_modules/follow-redirects/",
           "packageDependencies": [
@@ -8848,6 +8911,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["asynckit", "npm:0.4.0"],
             ["combined-stream", "npm:1.0.8"],
             ["mime-types", "npm:2.1.34"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["formidable", [
+        ["npm:1.2.6", {
+          "packageLocation": "./.yarn/cache/formidable-npm-1.2.6-68be5e1519-2b68ed07ba.zip/node_modules/formidable/",
+          "packageDependencies": [
+            ["formidable", "npm:1.2.6"]
           ],
           "linkType": "HARD",
         }]
@@ -14227,6 +14299,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["react-hook-form", [
+        ["npm:7.22.5", {
+          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.22.5-fd27583dae-73c76e132f.zip/node_modules/react-hook-form/",
+          "packageDependencies": [
+            ["react-hook-form", "npm:7.22.5"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:7.22.5", {
+          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-a95c6e9248/0/cache/react-hook-form-npm-7.22.5-fd27583dae-73c76e132f.zip/node_modules/react-hook-form/",
+          "packageDependencies": [
+            ["react-hook-form", "virtual:656141524fab26d76b9a0de37412b0bd8d68b112a7ae5bb3607d411763274ecb93d754bd2292ee7cee1844b867cae11a6a7be00b96f1e87fd47684b593faaa6e#npm:7.22.5"],
+            ["@types/react", "npm:17.0.38"],
+            ["react", "npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["react-is", [
         ["npm:16.13.1", {
           "packageLocation": "./.yarn/cache/react-is-npm-16.13.1-a9b9382b4f-f7a19ac349.zip/node_modules/react-is/",
@@ -15065,9 +15159,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["server", "workspace:server"],
             ["@types/body-parser", "npm:1.19.2"],
             ["@types/express", "npm:4.17.13"],
+            ["@types/express-formidable", "npm:1.2.0"],
             ["@types/morgan", "npm:1.9.3"],
             ["body-parser", "npm:1.19.1"],
             ["express", "npm:4.17.2"],
+            ["express-formidable", "npm:1.2.0"],
             ["mongoose", "npm:6.1.4"],
             ["morgan", "npm:1.10.0"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"]

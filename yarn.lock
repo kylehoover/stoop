@@ -2581,6 +2581,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-formidable@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@types/express-formidable@npm:1.2.0"
+  dependencies:
+    "@types/express": "*"
+    "@types/formidable": "*"
+  checksum: 13c0aea17cf85b3f096262770acba35c82006f2ab240f2996317008fea872e311fe5a6804871fa04f21443f28a46faa958bf3db437d3acd58514f0f22546bf89
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.27
   resolution: "@types/express-serve-static-core@npm:4.17.27"
@@ -2601,6 +2611,15 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: 12a2a0e6c4b993fc0854bec665906788aea0d8ee4392389d7a98a5de1eefdd33c9e1e40a91f3afd274011119c506f7b4126acb97fae62ae20b654974d44cba12
+  languageName: node
+  linkType: hard
+
+"@types/formidable@npm:*":
+  version: 2.0.3
+  resolution: "@types/formidable@npm:2.0.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: dd3e0be4cddf26da482bc550748fcf1b1212b8085e05c725b412ca9c8789153be3f650ac416676719311921b654bea8d42bfaaae056024aa6889eb845b4cb86e
   languageName: node
   linkType: hard
 
@@ -3651,6 +3670,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "axios@npm:0.24.0"
+  dependencies:
+    follow-redirects: ^1.14.4
+  checksum: 468cf496c08a6aadfb7e699bebdac02851e3043d4e7d282350804ea8900e30d368daa6e3cd4ab83b8ddb5a3b1e17a5a21ada13fc9cebd27b74828f47a4236316
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^2.2.0":
   version: 2.2.0
   resolution: "axobject-query@npm:2.2.0"
@@ -4293,8 +4321,10 @@ __metadata:
     "@types/node": ^16.11.19
     "@types/react": ^17.0.38
     "@types/react-dom": ^17.0.11
+    axios: ^0.24.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-hook-form: ^7.22.5
     react-router-dom: 6
     react-scripts: 5.0.0
     typescript: ^4.5.4
@@ -5962,6 +5992,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-formidable@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "express-formidable@npm:1.2.0"
+  dependencies:
+    formidable: ^1.0.17
+  checksum: a1bce48f4cd3ddd3d2c0de122e01dd781aef1a6de1b977cbd98e2979d1d3e0730e23fe17533cbb13773ffb046e33a6afb11408d532c25dc93bf3f5953aa11a3d
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.17.1, express@npm:^4.17.2":
   version: 4.17.2
   resolution: "express@npm:4.17.2"
@@ -6205,6 +6244,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.4":
+  version: 1.14.7
+  resolution: "follow-redirects@npm:1.14.7"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: f6d03e5e30877431065bca0d1b2e3db93949eb799d368a5c07ea8a4b71205f0349a3f8f0191bf13a07c93885522834dca1dc8e527dc99a772c6911fba24edc5f
+  languageName: node
+  linkType: hard
+
 "fork-ts-checker-webpack-plugin@npm:^6.5.0":
   version: 6.5.0
   resolution: "fork-ts-checker-webpack-plugin@npm:6.5.0"
@@ -6244,6 +6293,13 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: b019e8d35c8afc14a2bd8a7a92fa4f525a4726b6d5a9740e8d2623c30e308fbb58dc8469f90415a856698933c8479b01646a9dff33c87cc4e76d72aedbbf860d
+  languageName: node
+  linkType: hard
+
+"formidable@npm:^1.0.17":
+  version: 1.2.6
+  resolution: "formidable@npm:1.2.6"
+  checksum: 2b68ed07ba88302b9c63f8eda94f19a460cef6017bfda48348f09f41d2a36660c9353137991618e0e4c3db115b41e4b8f6fa63bc973b7a7c91dec66acdd02a56
   languageName: node
   linkType: hard
 
@@ -10328,6 +10384,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.22.5":
+  version: 7.22.5
+  resolution: "react-hook-form@npm:7.22.5"
+  peerDependencies:
+    react: ^16.8.0 || ^17
+  checksum: 73c76e132f96f01cf9bd447817dda393c57e04ab65005946cefd96436f5b49bc5fa2b3e24d2d1fa737c7334f971e28aef4f617cf25dbf89d0d019d0cb0b0e41f
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -11068,9 +11133,11 @@ __metadata:
   dependencies:
     "@types/body-parser": ^1.19.2
     "@types/express": ^4.17.13
+    "@types/express-formidable": ^1.2.0
     "@types/morgan": ^1.9.3
     body-parser: ^1.19.1
     express: ^4.17.2
+    express-formidable: ^1.2.0
     mongoose: ^6.1.4
     morgan: ^1.10.0
     typescript: ^4.5.4

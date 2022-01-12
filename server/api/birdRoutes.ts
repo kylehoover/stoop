@@ -27,9 +27,13 @@ router.get("/birds/:birdId", async (req, res, next) => {
 
 router.post("/birds", async (req: Request<{}, {}, IAddBirdRequest>, res, next) => {
   let bird;
+  console.log(req.body);
+  console.log(req.fields);
+  console.log(req.files);
 
   try {
-    bird = await addBird(req.body.bird);
+    // bird = await addBird(req.body.bird);
+    throw new Error();
   } catch (err: any) {
     err.clientMessage = "Failed to add new bird";
     next(err);
