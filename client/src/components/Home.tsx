@@ -1,10 +1,10 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { AddFirstBird } from "./AddFirstBird";
+import { useBirds } from "../api";
 
 export function Home() {
-  return (
-    <Container>
-      <AddFirstBird />
-    </Container>
-  );
+  const birds = useBirds();
+  const hasBirds = birds.length > 0;
+
+  return <Box className="Home">{!hasBirds && <AddFirstBird />}</Box>;
 }

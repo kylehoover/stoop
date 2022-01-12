@@ -1,11 +1,14 @@
+import { Box, Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { NavBar } from "./NavBar";
 
 export function App() {
   return (
-    <div className="App">
+    <Box className="App">
       <NavBar />
-      <Outlet />
-    </div>
+      <Container>
+        <Outlet />
+      </Container>
+    </Box>
   );
 }
