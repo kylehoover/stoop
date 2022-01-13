@@ -3,12 +3,12 @@ import { Avatar, Box, Button, Stack, TextField, Typography } from "@mui/material
 import { Controller, useForm } from "react-hook-form";
 
 interface IData {
-  birdName: string;
-  birdPhoto?: any;
-  birdSpecies: string;
+  name: string;
+  species: string;
+  uploadFile?: any;
 }
 
-const defaultValues: IData = { birdName: "", birdSpecies: "" };
+const defaultValues: IData = { name: "", species: "" };
 
 export function BirdForm() {
   const {
@@ -20,20 +20,21 @@ export function BirdForm() {
     watch,
   } = useForm({ defaultValues });
 
-  const [file] = watch("birdPhoto") ?? [];
+  const [file] = watch("uploadFile") ?? [];
   const fileUrl = file ? URL.createObjectURL(file) : "";
 
   function clearFile() {
-    setValue("birdPhoto", undefined);
+    setValue("uploadFile", undefined);
   }
 
   function onSubmit(data: any) {
     console.log(data);
     const formData = new FormData();
-    formData.append("name", data.birdName);
-    formData.append("species", data.birdSpecies);
-    formData.append("photo", data.birdPhoto[0]);
+    formData.append("name", data.name);
+    formData.append("species", data.species);
+    formData.append("photo", data.uploadFile[0]);
     axios.post("/api/birds", formData);
+    // TODO: set max file size
   }
 
   return (
@@ -46,15 +47,15 @@ export function BirdForm() {
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
           <Stack direction={{ xs: "column", sm: "column" }} spacing={2} sx={{ width: "100%" }}>
             <Controller
-              name="birdName"
+              name="name"
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
                 <TextField
-                  id="birdName"
+                  id="name"
                   variant="outlined"
                   label="Name"
-                  error={!!errors.birdName}
+                  error={!!errors.name}
                   fullWidth
                   required
                   {...field}
@@ -63,14 +64,14 @@ export function BirdForm() {
             />
 
             <Controller
-              name="birdSpecies"
+              name="species"
               control={control}
               render={({ field }) => (
                 <TextField
-                  id="birdSpecies"
+                  id="species"
                   variant="outlined"
                   label="Species"
-                  error={!!errors.birdSpecies}
+                  error={!!errors.species}
                   fullWidth
                   {...field}
                 />
@@ -80,13 +81,13 @@ export function BirdForm() {
 
           <Stack alignItems="center" spacing={2} sx={{ width: "100%" }}>
             <Stack direction="row" spacing={2}>
-              <label htmlFor="birdPhoto">
+              <label htmlFor="uploadFile">
                 <input
-                  id="birdPhoto"
+                  id="uploadFile"
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
-                  {...register("birdPhoto")}
+                  {...register("uploadFile")}
                 />
                 <Button variant="contained" component="span">
                   Upload photo

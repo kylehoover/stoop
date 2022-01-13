@@ -2,8 +2,6 @@ import bodyParser from "body-parser";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import morgan from "morgan";
-import path from "path";
-import { BirdModel } from "./db";
 import { birdRoutes } from "./api";
 
 async function run() {
