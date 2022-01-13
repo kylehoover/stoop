@@ -109,6 +109,10 @@ const birdSchema = new Schema<IBirdModel>(
       minlength: 1,
       trim: true,
     },
+    img: {
+      type: String,
+      default: "",
+    },
     species: {
       type: String,
       default: "",

@@ -46,6 +46,7 @@ export interface ITargetModel extends ITargetBase<Date> {}
 export interface ITarget extends ITargetBase<string> {}
 
 export interface IBirdBase<TTarget> {
+  img: string;
   name: string;
   species: string;
   target?: TTarget;

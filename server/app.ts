@@ -1,8 +1,8 @@
 import bodyParser from "body-parser";
 import express, { NextFunction, Request, Response } from "express";
-import formidable from "express-formidable";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import path from "path";
 import { BirdModel } from "./db";
 import { birdRoutes } from "./api";
 
@@ -10,12 +10,10 @@ async function run() {
   const app = express();
   await mongoose.connect("mongodb://localhost:27017/stoop");
 
-  app.use(morgan("tiny"));
-
+  app.use(morgan("dev"));
   app.use(bodyParser.json());
-  app.use(formidable());
-
   app.use("/api", birdRoutes);
+  app.use("/static/birds", express.static("uploads"));
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     const clientMessage = err?.clientMessage ?? "Unknown error";
