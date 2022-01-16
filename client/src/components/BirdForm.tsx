@@ -1,14 +1,17 @@
 import axios from "axios";
-import { Avatar, Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { useRef } from "react";
 
 interface IData {
   name: string;
   species: string;
-  uploadFile?: any;
+  uploadFile: any;
 }
 
-const defaultValues: IData = { name: "", species: "" };
+const defaultValues: IData = { name: "", species: "", uploadFile: "" };
+
+// TODO: add validation rules
 
 export function BirdForm() {
   const {
@@ -20,11 +23,18 @@ export function BirdForm() {
     watch,
   } = useForm({ defaultValues });
 
-  const [file] = watch("uploadFile") ?? [];
+  const uploadFileRef = useRef<HTMLInputElement | null>(null);
+  const { ref: registerUploadFileRef, ...registerUploadFileRest } = register("uploadFile");
+
+  const [file] = watch("uploadFile");
   const fileUrl = file ? URL.createObjectURL(file) : "";
 
   function clearFile() {
-    setValue("uploadFile", undefined);
+    setValue("uploadFile", "");
+
+    if (uploadFileRef.current) {
+      uploadFileRef.current.value = "";
+    }
   }
 
   function onSubmit(data: any) {
@@ -44,8 +54,8 @@ export function BirdForm() {
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-          <Stack direction={{ xs: "column", sm: "column" }} spacing={2} sx={{ width: "100%" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
             <Controller
               name="name"
               control={control}
@@ -62,7 +72,9 @@ export function BirdForm() {
                 />
               )}
             />
+          </Grid>
 
+          <Grid item xs={12} sm={6}>
             <Controller
               name="species"
               control={control}
@@ -77,37 +89,40 @@ export function BirdForm() {
                 />
               )}
             />
-          </Stack>
+          </Grid>
 
-          <Stack alignItems="center" spacing={2} sx={{ width: "100%" }}>
-            <Stack direction="row" spacing={2}>
-              <label htmlFor="uploadFile">
-                <input
-                  id="uploadFile"
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  {...register("uploadFile")}
-                />
-                <Button variant="contained" component="span">
-                  Upload photo
-                </Button>
-              </label>
+          <Grid item xs={12}>
+            <label htmlFor="uploadFile">
+              <input
+                id="uploadFile"
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                ref={(ref) => {
+                  registerUploadFileRef(ref);
+                  uploadFileRef.current = ref;
+                }}
+                {...registerUploadFileRest}
+                // {...register("uploadFile")}
+              />
+              <Button variant="outlined" component="span">
+                Upload photo
+              </Button>
+            </label>
 
-              {fileUrl && (
-                <Button variant="outlined" color="error" onClick={clearFile}>
-                  Clear
-                </Button>
-              )}
-            </Stack>
+            {fileUrl && (
+              <Button sx={{ marginLeft: 2 }} onClick={clearFile}>
+                Clear
+              </Button>
+            )}
 
-            {fileUrl && <Avatar src={fileUrl} sx={{ height: 200, width: 200 }} />}
-          </Stack>
-        </Stack>
+            {fileUrl && <Avatar src={fileUrl} sx={{ height: 200, width: 200, marginTop: 2 }} />}
+          </Grid>
+        </Grid>
 
         <Stack direction="row" justifyContent="flex-end" spacing={4} mt={5}>
-          <Button color="error">Cancel</Button>
-          <Button variant="contained" type="submit" color="success">
+          <Button>Cancel</Button>
+          <Button variant="contained" type="submit">
             Submit
           </Button>
         </Stack>
