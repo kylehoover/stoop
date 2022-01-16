@@ -2,14 +2,26 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Root } from "./components";
 import reportWebVitals from "./reportWebVitals";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+      staleTime: Infinity, // TODO: pick something more reasonable
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <CssBaseline>
-        <Root />
+        <QueryClientProvider client={queryClient}>
+          <Root />
+        </QueryClientProvider>
       </CssBaseline>
     </BrowserRouter>
   </React.StrictMode>,
