@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { App } from "./App";
+import { BirdPage } from "./BirdPage";
 import { Home } from "./Home";
 import { LandingPage } from "./LandingPage";
 import { NewBirdPage } from "./NewBirdPage";
@@ -13,6 +14,7 @@ export function Root() {
         <Route path="/app" element={<App />}>
           <Route index element={<Home />} />
           <Route path="birds">
+            <Route path=":birdId" element={<BirdPage />} />
             <Route path="new" element={<NewBirdPage />} />
           </Route>
         </Route>

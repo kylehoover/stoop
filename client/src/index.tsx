@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Root } from "./components";
 import reportWebVitals from "./reportWebVitals";
@@ -16,14 +16,18 @@ const queryClient = new QueryClient({
   },
 });
 
+const theme = responsiveFontSizes(createTheme());
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <CssBaseline>
-        <QueryClientProvider client={queryClient}>
-          <Root />
-        </QueryClientProvider>
-      </CssBaseline>
+      <QueryClientProvider client={queryClient}>
+        <CssBaseline>
+          <ThemeProvider theme={theme}>
+            <Root />
+          </ThemeProvider>
+        </CssBaseline>
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

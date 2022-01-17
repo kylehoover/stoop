@@ -10,13 +10,18 @@ interface IProps {
 const dimensions = [100, 150];
 
 export function Mews(props: IProps) {
+  // TODO: sort by name or last modified at
   const { birds } = props;
 
   return (
     <Grid container justifyContent="center" spacing={4}>
       {birds.map((bird) => (
         <Grid item xs="auto" key={bird.id}>
-          <Button sx={{ borderRadius: "50%", height: dimensions, width: dimensions }}>
+          <Button
+            component={Link}
+            to={`/app/birds/${bird.id}`}
+            sx={{ borderRadius: "50%", height: dimensions, width: dimensions }}
+          >
             <Avatar src={bird.img} sx={{ height: "inherit", width: "inherit" }} />
           </Button>
           <Typography variant="h6" component="div" sx={{ marginTop: 2, textAlign: "center" }}>

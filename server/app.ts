@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import { birdRoutes } from "./api";
 
+// TODO: add caching policy
+
 async function run() {
   const app = express();
   await mongoose.connect("mongodb://localhost:27017/stoop");
