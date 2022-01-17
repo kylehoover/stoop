@@ -10,6 +10,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: Infinity,
+      retry: false,
       staleTime: Infinity, // TODO: pick something more reasonable
     },
   },

@@ -3,6 +3,10 @@ import { Avatar, Box, Button, Grid, Stack, TextField, Typography } from "@mui/ma
 import { Controller, useForm } from "react-hook-form";
 import { useRef } from "react";
 
+interface IProps {
+  onCancel: () => void;
+}
+
 interface IData {
   name: string;
   species: string;
@@ -13,7 +17,9 @@ const defaultValues: IData = { name: "", species: "", uploadFile: "" };
 
 // TODO: add validation rules
 
-export function BirdForm() {
+export function BirdForm(props: IProps) {
+  const { onCancel } = props;
+
   const {
     control,
     formState: { errors },
@@ -121,7 +127,7 @@ export function BirdForm() {
         </Grid>
 
         <Stack direction="row" justifyContent="flex-end" spacing={4} mt={5}>
-          <Button>Cancel</Button>
+          <Button onClick={onCancel}>Cancel</Button>
           <Button variant="contained" type="submit">
             Submit
           </Button>
