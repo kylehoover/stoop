@@ -51,6 +51,8 @@ export function BirdForm(props: IProps) {
     formData.append("photo", data.uploadFile[0]);
     axios.post("/api/birds", formData);
     // TODO: set max file size
+    // TODO: disable submit and cancel buttons
+    // TODO: route to bird page on success
   }
 
   return (
