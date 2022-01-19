@@ -31,7 +31,7 @@ router.get("/birds/:birdId", async (req, res, next) => {
 
 router.post(
   "/birds",
-  upload.single("photo"),
+  upload.single("imgFile"),
   async (req: Request<{}, {}, IAddBirdRequest>, res, next) => {
     const newBird: INewBird = {
       ...req.body,

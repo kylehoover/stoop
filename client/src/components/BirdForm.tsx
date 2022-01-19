@@ -1,24 +1,28 @@
 import axios from "axios";
+import { useRef } from "react";
 import { Avatar, Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { useRef } from "react";
+import { IBird } from "@shared/types";
+import { addBird } from "src/services/addBird";
 
 interface IProps {
+  bird?: IBird;
   onCancel: () => void;
+  onSuccess: (bird: IBird) => void;
 }
 
 interface IData {
   name: string;
   species: string;
-  uploadFile: any;
+  imgFile: FileList | string;
 }
 
-const defaultValues: IData = { name: "", species: "", uploadFile: "" };
+const defaultValues: IData = { name: "", species: "", imgFile: "" };
 
 // TODO: add validation rules
 
 export function BirdForm(props: IProps) {
-  const { onCancel } = props;
+  const { bird, onCancel, onSuccess } = props;
 
   const {
     control,
@@ -29,27 +33,27 @@ export function BirdForm(props: IProps) {
     watch,
   } = useForm({ defaultValues });
 
-  const uploadFileRef = useRef<HTMLInputElement | null>(null);
-  const { ref: registerUploadFileRef, ...registerUploadFileRest } = register("uploadFile");
+  const imgFileRef = useRef<HTMLInputElement | null>(null);
+  const { ref: registerImgFileRef, ...registerImgFileRest } = register("imgFile");
 
-  const [file] = watch("uploadFile");
-  const fileUrl = file ? URL.createObjectURL(file) : "";
+  const file = watch("imgFile")[0];
+  const fileUrl = file ? URL.createObjectURL(file as File) : "";
 
   function clearFile() {
-    setValue("uploadFile", "");
+    setValue("imgFile", "");
 
-    if (uploadFileRef.current) {
-      uploadFileRef.current.value = "";
+    if (imgFileRef.current) {
+      imgFileRef.current.value = "";
     }
   }
 
-  function onSubmit(data: any) {
-    console.log(data);
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("species", data.species);
-    formData.append("photo", data.uploadFile[0]);
-    axios.post("/api/birds", formData);
+  async function onSubmit(data: IData) {
+    const { imgFile, name, species } = data;
+
+    if (bird) {
+    } else {
+      addBird({ name, species, imgFile: imgFile ? (imgFile as FileList)[0] : undefined });
+    }
     // TODO: set max file size
     // TODO: disable submit and cancel buttons
     // TODO: route to bird page on success
@@ -100,18 +104,17 @@ export function BirdForm(props: IProps) {
           </Grid>
 
           <Grid item xs={12}>
-            <label htmlFor="uploadFile">
+            <label htmlFor="imgFile">
               <input
-                id="uploadFile"
+                id="imgFile"
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
                 ref={(ref) => {
-                  registerUploadFileRef(ref);
-                  uploadFileRef.current = ref;
+                  registerImgFileRef(ref);
+                  imgFileRef.current = ref;
                 }}
-                {...registerUploadFileRest}
-                // {...register("uploadFile")}
+                {...registerImgFileRest}
               />
               <Button variant="outlined" component="span">
                 Upload photo

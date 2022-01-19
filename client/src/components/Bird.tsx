@@ -1,6 +1,6 @@
-import EditIcon from "@mui/icons-material/Edit";
 import { Avatar, Box, Button, Divider, IconButton, Stack, Typography } from "@mui/material";
 import { IBird, IEntry } from "@shared/types";
+import { Target } from "./Target";
 
 interface IProps {
   bird: IBird;
@@ -10,7 +10,7 @@ const imgDimensions = [100, 150];
 
 export function Bird(props: IProps) {
   const {
-    bird: { entries, img, name },
+    bird: { entries, img, name, target },
   } = props;
 
   const hasEntries = entries.length > 0;
@@ -51,15 +51,7 @@ export function Bird(props: IProps) {
         </Box>
       </Stack>
 
-      <Stack direction="row" alignItems="center" spacing={2} mt={4}>
-        <Typography variant="h6" component="div">
-          Target: No target set
-        </Typography>
-
-        <IconButton aria-label="Edit target">
-          <EditIcon />
-        </IconButton>
-      </Stack>
+      <Target target={target} />
 
       {!hasEntries && (
         <Box sx={{ mt: 6, mx: "auto", width: "fit-content" }}>

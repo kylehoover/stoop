@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { IBird } from "@shared/types";
 import { BirdForm } from "./BirdForm";
 
 export function NewBirdPage() {
@@ -9,5 +10,12 @@ export function NewBirdPage() {
     navigate("/app");
   }, [navigate]);
 
-  return <BirdForm onCancel={onCancel} />;
+  const onSuccess = useCallback(
+    (bird: IBird) => {
+      navigate(`/app/birds/${bird.id}`);
+    },
+    [navigate]
+  );
+
+  return <BirdForm onCancel={onCancel} onSuccess={onSuccess} />;
 }
