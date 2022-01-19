@@ -1,8 +1,16 @@
 import { useCallback, useRef } from "react";
-import { Avatar, Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { IBird } from "@shared/types";
-import { addBird } from "src/services/addBird";
 import { useAddBirdMutation } from "src/api";
 
 interface IProps {
@@ -144,8 +152,9 @@ export function BirdForm(props: IProps) {
           <Button onClick={onCancel} disabled={isLoading}>
             Cancel
           </Button>
+
           <Button variant="contained" type="submit" disabled={isLoading}>
-            Submit
+            {isLoading ? <CircularProgress color="inherit" size={20} sx={{ mx: 2 }} /> : "Submit"}
           </Button>
         </Stack>
       </form>
