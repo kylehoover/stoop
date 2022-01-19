@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { Avatar, Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { IBird } from "@shared/types";
 import { addBird } from "src/services/addBird";
+import { useAddBirdMutation } from "src/api";
 
 interface IProps {
   bird?: IBird;
@@ -14,15 +14,17 @@ interface IProps {
 interface IData {
   name: string;
   species: string;
-  imgFile: FileList | string;
+  imgFileList?: FileList;
 }
 
-const defaultValues: IData = { name: "", species: "", imgFile: "" };
+const defaultValues: IData = { name: "", species: "", imgFileList: undefined };
 
 // TODO: add validation rules
 
 export function BirdForm(props: IProps) {
   const { bird, onCancel, onSuccess } = props;
+  const addBirdMutation = useAddBirdMutation();
+  const isLoading = addBirdMutation.isLoading;
 
   const {
     control,
@@ -34,30 +36,34 @@ export function BirdForm(props: IProps) {
   } = useForm({ defaultValues });
 
   const imgFileRef = useRef<HTMLInputElement | null>(null);
-  const { ref: registerImgFileRef, ...registerImgFileRest } = register("imgFile");
+  const { ref: registerImgFileListRef, ...registerImgFileListRest } = register("imgFileList");
 
-  const file = watch("imgFile")[0];
+  const file = watch("imgFileList")?.[0];
   const fileUrl = file ? URL.createObjectURL(file as File) : "";
 
-  function clearFile() {
-    setValue("imgFile", "");
+  const clearFile = useCallback(() => {
+    setValue("imgFileList", undefined);
 
     if (imgFileRef.current) {
       imgFileRef.current.value = "";
     }
-  }
+  }, [setValue]);
 
-  async function onSubmit(data: IData) {
-    const { imgFile, name, species } = data;
+  const onSubmit = useCallback(
+    async (data: IData) => {
+      const { imgFileList, name, species } = data;
+      const imgFile = imgFileList?.[0];
 
-    if (bird) {
-    } else {
-      addBird({ name, species, imgFile: imgFile ? (imgFile as FileList)[0] : undefined });
-    }
-    // TODO: set max file size
-    // TODO: disable submit and cancel buttons
-    // TODO: route to bird page on success
-  }
+      if (bird) {
+      } else {
+        addBirdMutation.mutate({ imgFile, name, species }, { onSuccess });
+      }
+      // TODO: set max file size
+      // TODO: disable submit and cancel buttons
+      // TODO: route to bird page on success
+    },
+    [addBirdMutation, bird, onSuccess]
+  );
 
   return (
     <Box className="BirdForm">
@@ -78,6 +84,7 @@ export function BirdForm(props: IProps) {
                   variant="outlined"
                   label="Name"
                   error={!!errors.name}
+                  disabled={isLoading}
                   fullWidth
                   required
                   {...field}
@@ -96,6 +103,7 @@ export function BirdForm(props: IProps) {
                   variant="outlined"
                   label="Species"
                   error={!!errors.species}
+                  disabled={isLoading}
                   fullWidth
                   {...field}
                 />
@@ -104,25 +112,26 @@ export function BirdForm(props: IProps) {
           </Grid>
 
           <Grid item xs={12}>
-            <label htmlFor="imgFile">
+            <label htmlFor="imgFileList">
               <input
-                id="imgFile"
+                id="imgFileList"
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
+                disabled={isLoading}
                 ref={(ref) => {
-                  registerImgFileRef(ref);
+                  registerImgFileListRef(ref);
                   imgFileRef.current = ref;
                 }}
-                {...registerImgFileRest}
+                {...registerImgFileListRest}
               />
-              <Button variant="outlined" component="span">
+              <Button variant="outlined" component="span" disabled={isLoading}>
                 Upload photo
               </Button>
             </label>
 
             {fileUrl && (
-              <Button sx={{ marginLeft: 2 }} onClick={clearFile}>
+              <Button sx={{ marginLeft: 2 }} onClick={clearFile} disabled={isLoading}>
                 Clear
               </Button>
             )}
@@ -132,8 +141,10 @@ export function BirdForm(props: IProps) {
         </Grid>
 
         <Stack direction="row" justifyContent="flex-end" spacing={4} mt={5}>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button variant="contained" type="submit">
+          <Button onClick={onCancel} disabled={isLoading}>
+            Cancel
+          </Button>
+          <Button variant="contained" type="submit" disabled={isLoading}>
             Submit
           </Button>
         </Stack>

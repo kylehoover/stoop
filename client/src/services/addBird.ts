@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IBird } from "@shared/types";
+import { delay } from "src/api";
 
 interface IAddBirdData {
   imgFile?: File;
@@ -24,6 +25,7 @@ export async function addBird(data: IAddBirdData): Promise<IBird> {
     formData.append("imgFile", imgFile);
   }
 
+  await delay(5000);
   const resp = await axios.post<IAddBirdResponse>("/api/birds", formData);
 
   return resp.data.bird;

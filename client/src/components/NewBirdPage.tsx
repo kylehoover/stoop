@@ -12,7 +12,7 @@ export function NewBirdPage() {
 
   const onSuccess = useCallback(
     (bird: IBird) => {
-      navigate(`/app/birds/${bird.id}`);
+      navigate(`/app/birds/${bird.id}`, { replace: true });
     },
     [navigate]
   );
