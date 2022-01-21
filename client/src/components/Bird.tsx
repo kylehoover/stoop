@@ -1,5 +1,7 @@
-import { Avatar, Box, Button, Divider, IconButton, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { IBird, IEntry } from "@shared/types";
+import { BurnRate } from "./BurnRate";
+import { Entries } from "./Entries";
 import { Target } from "./Target";
 
 interface IProps {
@@ -13,7 +15,6 @@ export function Bird(props: IProps) {
     bird: { entries, img, name, target },
   } = props;
 
-  const hasEntries = entries.length > 0;
   const [entry] = entries;
   const dateTime = entry?.dateTime;
   const weight = entry?.weight ?? "---";
@@ -21,7 +22,7 @@ export function Bird(props: IProps) {
 
   return (
     <Box>
-      <Stack direction="row" spacing={{ xs: 2, sm: 4, md: 6 }}>
+      <Stack direction="row" spacing={{ xs: 2, sm: 4, md: 6 }} mb={2}>
         <Avatar src={img} sx={{ height: imgDimensions, width: imgDimensions }} />
         <Box>
           <Typography variant="h2" component="h1">
@@ -51,15 +52,16 @@ export function Bird(props: IProps) {
         </Box>
       </Stack>
 
-      <Target target={target} />
+      <Grid container spacing={2} mb={2}>
+        <Grid item xs={12} md={6}>
+          <Target target={target} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <BurnRate />
+        </Grid>
+      </Grid>
 
-      {!hasEntries && (
-        <Box sx={{ mt: 6, mx: "auto", width: "fit-content" }}>
-          <Button variant="contained" sx={{ height: 50, width: 250 }}>
-            Add your first entry
-          </Button>
-        </Box>
-      )}
+      <Entries entries={entries} />
     </Box>
   );
 }

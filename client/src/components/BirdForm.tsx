@@ -12,11 +12,10 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { IBird } from "@shared/types";
 import { useAddBirdMutation } from "src/api";
+import { IHaveFormHandlers } from "src/types";
 
-interface IProps {
+interface IProps extends IHaveFormHandlers<IBird> {
   bird?: IBird;
-  onCancel: () => void;
-  onSuccess: (bird: IBird) => void;
 }
 
 interface IData {
@@ -149,7 +148,7 @@ export function BirdForm(props: IProps) {
         </Grid>
 
         <Stack direction="row" justifyContent="flex-end" spacing={4} mt={5}>
-          <Button onClick={onCancel} disabled={isLoading}>
+          <Button disabled={isLoading} onClick={onCancel}>
             Cancel
           </Button>
 
