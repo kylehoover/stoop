@@ -1,15 +1,5 @@
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  IconButton,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import dayjs from "dayjs";
+import { Box, Button, CircularProgress, Grid, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { ITarget } from "@shared/types";
@@ -20,10 +10,11 @@ interface IProps extends IHaveFormHandlers<void> {
 }
 
 interface IData {
+  dateTime: string;
   weight: string;
 }
 
-const defaultValues: IData = { weight: "" };
+const defaultValues: IData = { dateTime: "", weight: "" };
 
 export function TargetForm(props: IProps) {
   const { onCancel, onSuccess, target } = props;
@@ -32,19 +23,19 @@ export function TargetForm(props: IProps) {
     control,
     formState: { errors },
     handleSubmit,
-    register,
   } = useForm({ defaultValues });
-
-  console.log(errors);
 
   const isLoading = false;
 
-  const onSubmit = useCallback(() => {}, []);
+  const onSubmit = useCallback(async (data: IData) => {
+    console.log(data);
+    console.log(dayjs(data.dateTime).toISOString());
+  }, []);
 
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container>
+        <Grid container spacing={2} mb={2}>
           <Grid item xs={12} sm={6}>
             <Controller
               name="weight"
@@ -58,17 +49,40 @@ export function TargetForm(props: IProps) {
                   label="Target weight (grams)"
                   error={!!errors.weight}
                   disabled={isLoading}
+                  inputProps={{ inputMode: "numeric" }}
                   fullWidth
                   required
-                  inputProps={{ inputMode: "numeric" }}
                   {...field}
                 />
               )}
-            ></Controller>
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="dateTime"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <TextField
+                  id="dateTime"
+                  size="small"
+                  variant="outlined"
+                  label="Target time"
+                  type="datetime-local"
+                  error={!!errors.dateTime}
+                  disabled={isLoading}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                  required
+                  {...field}
+                />
+              )}
+            />
           </Grid>
         </Grid>
 
-        <Stack direction="row" justifyContent="flex-end" spacing={2} mt={1}>
+        <Stack direction="row" justifyContent="flex-end" spacing={2}>
           <Button size="small" disabled={isLoading} onClick={onCancel}>
             Cancel
           </Button>

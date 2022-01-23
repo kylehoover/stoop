@@ -50,7 +50,6 @@ export interface IBirdBase<TTarget> {
   name: string;
   species: string;
   target?: TTarget;
-  // TODO: property for picture path
 }
 
 export interface IBirdBaseWithEntries<TEntry, TTarget> extends IBirdBase<TTarget> {
@@ -68,6 +67,10 @@ export interface IBirdPreview extends IBirdBase<ITarget> {
 export interface IBird extends IBirdBaseWithEntries<IEntry, ITarget> {
   id: string;
 }
+
+export interface INewBird extends IBirdBase<ITarget> {}
+
+export interface IUpdatedBird extends Partial<IBirdBase<ITarget>> {}
 
 export const MAX_BIRD_NAME_LENGTH = 50;
 export const MAX_NOTES_LENGTH = 250;

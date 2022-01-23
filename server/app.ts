@@ -18,8 +18,9 @@ async function run() {
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     const clientMessage = err?.clientMessage ?? "Unknown error";
     const message = err?.message ?? "Unknown error";
+    const status = err?.status ?? 500;
     console.log("ERROR:", message);
-    res.status(500).send({ error: { message: clientMessage } });
+    res.status(status).send({ error: { message: clientMessage } });
   });
 
   app.listen(8001, () => {
