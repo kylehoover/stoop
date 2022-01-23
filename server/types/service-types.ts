@@ -1,4 +1,4 @@
-import { IBirdBase, ITarget } from ".";
+import { ITarget } from ".";
 
 export interface IAddBirdRequest {
   name: string;
@@ -10,4 +10,8 @@ export interface IUpdateBirdRequest {
   species?: string;
   targetDateTime?: string;
   targetWeight?: string;
+}
+
+export interface IUpdateTargetRequest {
+  target: ITarget;
 }

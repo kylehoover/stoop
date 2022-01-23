@@ -1,8 +1,13 @@
 import multer from "multer";
-import path from "path";
 import { Request, Router } from "express";
-import { IAddBirdRequest, INewBird, IUpdateBirdRequest, IUpdatedBird } from "../types";
-import { addBird, getBird, getBirds, updateBird } from "../db";
+import {
+  IAddBirdRequest,
+  INewBird,
+  IUpdateBirdRequest,
+  IUpdatedBird,
+  IUpdateTargetRequest,
+} from "../types";
+import { addBird, getBird, getBirds, removeTarget, updateBird, updateTarget } from "../db";
 import { transformBird, transformBirds } from "./helpers";
 
 const router = Router();
@@ -74,6 +79,7 @@ router.post(
       species,
     };
 
+    // TODO: remove
     if (targetDateTime !== undefined || targetWeight !== undefined) {
       if (targetDateTime === "" && targetWeight === "") {
         updatedBird.target = undefined;
@@ -112,5 +118,59 @@ router.post(
     res.json({ bird: transformBird(birdModel) });
   }
 );
+
+router.post(
+  "/birds/:birdId/target",
+  async (req: Request<{ birdId: string }, {}, IUpdateTargetRequest>, res, next) => {
+    const { birdId } = req.params;
+    const { target } = req.body;
+    const clientMessage = "Failed to update target";
+    let targetModel;
+
+    try {
+      targetModel = await updateTarget(birdId, target);
+    } catch (err: any) {
+      err.clientMessage = clientMessage;
+      next(err);
+      return;
+    }
+
+    if (!targetModel) {
+      next({
+        clientMessage,
+        message: `Failed to update target; bird "${birdId}" does not exist`,
+        status: 404,
+      });
+      return;
+    }
+
+    res.json({ target: targetModel });
+  }
+);
+
+router.delete("/birds/:birdId/target", async (req, res, next) => {
+  const { birdId } = req.params;
+  const clientMessage = "Failed to remove target";
+  let isSuccess = false;
+
+  try {
+    isSuccess = await removeTarget(birdId);
+  } catch (err: any) {
+    err.clientMessage = clientMessage;
+    next(err);
+    return;
+  }
+
+  if (!isSuccess) {
+    next({
+      clientMessage,
+      message: `Failed to remove target; bird "${birdId}" does not exist`,
+      status: 404,
+    });
+    return;
+  }
+
+  res.status(200).send();
+});
 
 export { router as birdRoutes };
