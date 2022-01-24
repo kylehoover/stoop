@@ -5,6 +5,10 @@ import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@m
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Root } from "./components";
 import reportWebVitals from "./reportWebVitals";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(localizedFormat);
 
 const queryClient = new QueryClient({
   defaultOptions: {

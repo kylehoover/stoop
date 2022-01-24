@@ -62,12 +62,11 @@ export function BirdForm(props: IProps) {
       const imgFile = imgFileList?.[0];
 
       if (bird) {
+        // TODO: update existing bird
       } else {
         addBirdMutation.mutate({ imgFile, name, species }, { onSuccess });
       }
       // TODO: set max file size
-      // TODO: disable submit and cancel buttons
-      // TODO: route to bird page on success
     },
     [addBirdMutation, bird, onSuccess]
   );

@@ -4,8 +4,10 @@ import { Controller, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { ITarget } from "@shared/types";
 import { IHaveFormHandlers } from "src/types";
+import { useUpdateTargetMutation } from "src/api";
 
-interface IProps extends IHaveFormHandlers<void> {
+interface IProps extends IHaveFormHandlers<ITarget> {
+  birdId: string;
   target?: ITarget;
 }
 
@@ -17,7 +19,9 @@ interface IData {
 const defaultValues: IData = { dateTime: "", weight: "" };
 
 export function TargetForm(props: IProps) {
-  const { onCancel, onSuccess, target } = props;
+  const { birdId, onCancel, onSuccess, target } = props;
+  const updateTargetMutation = useUpdateTargetMutation(birdId);
+  const { isLoading } = updateTargetMutation;
 
   const {
     control,
@@ -25,12 +29,23 @@ export function TargetForm(props: IProps) {
     handleSubmit,
   } = useForm({ defaultValues });
 
-  const isLoading = false;
+  const onSubmit = useCallback(
+    async (data: IData) => {
+      const { dateTime, weight } = data;
 
-  const onSubmit = useCallback(async (data: IData) => {
-    console.log(data);
-    console.log(dayjs(data.dateTime).toISOString());
-  }, []);
+      updateTargetMutation.mutate(
+        {
+          birdId,
+          target: {
+            dateTime: dayjs(dateTime).toISOString(),
+            weight: parseInt(weight, 10),
+          },
+        },
+        { onSuccess }
+      );
+    },
+    [birdId, onSuccess, updateTargetMutation.mutate]
+  );
 
   return (
     <Box>

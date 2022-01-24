@@ -1,17 +1,22 @@
+import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
+import dayjs from "dayjs";
 import { Alert, Button, IconButton, Paper, Stack, Typography } from "@mui/material";
-import { ITarget } from "@shared/types";
 import { useCallback, useState } from "react";
+import { ITarget } from "@shared/types";
 import { TargetForm } from "./TargetForm";
+import { removeTarget } from "src/services";
 
 interface IProps {
+  birdId: string;
   target?: ITarget;
 }
 
 export function Target(props: IProps) {
-  const { target } = props;
+  const { birdId, target } = props;
   const [showForm, setShowForm] = useState(false);
   const showAlert = !target && !showForm;
+  const showTarget = target && !showForm;
 
   const displayText = target ? `${target.weight}g by 8am today` : "No target set";
 
@@ -23,11 +28,23 @@ export function Target(props: IProps) {
     setShowForm(false);
   }, []);
 
+  const clearTarget = useCallback(() => {
+    removeTarget(birdId);
+  }, [birdId]);
+
   return (
     <Paper variant="outlined" sx={{ padding: 1 }}>
-      <Typography variant="h6" component="div" mb={1}>
-        Target
-      </Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+        <Typography variant="h6" component="div">
+          Target
+        </Typography>
+
+        {target && (
+          <IconButton size="small" aria-label="Remove target" onClick={clearTarget}>
+            <ClearIcon />
+          </IconButton>
+        )}
+      </Stack>
 
       {showAlert && (
         <Alert
@@ -42,19 +59,15 @@ export function Target(props: IProps) {
         </Alert>
       )}
 
-      {showForm && <TargetForm target={target} onCancel={closeForm} onSuccess={() => {}} />}
+      {showForm && (
+        <TargetForm birdId={birdId} target={target} onCancel={closeForm} onSuccess={closeForm} />
+      )}
+
+      {showTarget && (
+        <Typography>
+          {target.weight}g {dayjs(target.dateTime).format("ddd, MMM D, LT")}
+        </Typography>
+      )}
     </Paper>
-  );
-
-  return (
-    <Stack direction="row" alignItems="center" spacing={2} mt={4}>
-      <Typography variant="h6" component="div">
-        Target: {displayText}
-      </Typography>
-
-      <IconButton aria-label="Edit target">
-        <EditIcon />
-      </IconButton>
-    </Stack>
   );
 }

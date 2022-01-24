@@ -12,6 +12,6 @@ interface IUpdateTargetResponse {
 
 export async function updateTarget(data: IUpdateTargetData): Promise<ITarget> {
   const { birdId, target } = data;
-  const resp = await axios.post<IUpdateTargetResponse>(`/api/birds/${birdId}/target`, target);
+  const resp = await axios.post<IUpdateTargetResponse>(`/api/birds/${birdId}/target`, { target });
   return resp.data.target;
 }

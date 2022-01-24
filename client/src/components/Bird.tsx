@@ -12,7 +12,7 @@ const imgDimensions = [100, 150];
 
 export function Bird(props: IProps) {
   const {
-    bird: { entries, img, name, target },
+    bird: { id, entries, img, name, target },
   } = props;
 
   const [entry] = entries;
@@ -54,7 +54,7 @@ export function Bird(props: IProps) {
 
       <Grid container spacing={2} mb={2}>
         <Grid item xs={12} md={6}>
-          <Target target={target} />
+          <Target birdId={id} target={target} />
         </Grid>
         <Grid item xs={12} md={6}>
           <BurnRate />
