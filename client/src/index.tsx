@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { BrowserRouter } from "react-router-dom";
-import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
 import { Root } from "./components";
 import reportWebVitals from "./reportWebVitals";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
 
+dayjs.extend(calendar);
 dayjs.extend(localizedFormat);
 
 const queryClient = new QueryClient({

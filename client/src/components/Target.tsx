@@ -1,11 +1,11 @@
-import ClearIcon from "@mui/icons-material/Clear";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
-import { Alert, Button, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Paper, Stack, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { ITarget } from "@shared/types";
 import { TargetForm } from "./TargetForm";
-import { removeTarget } from "src/services";
+import { useRemoveTargetMutation } from "src/api";
 
 interface IProps {
   birdId: string;
@@ -17,20 +17,32 @@ export function Target(props: IProps) {
   const [showForm, setShowForm] = useState(false);
   const showAlert = !target && !showForm;
   const showTarget = target && !showForm;
+  // const displayText = `${target?.weight}g by ${dayjs(target?.dateTime).format("ddd, MMM D, LT")}`;
+  const displayText = `${target?.weight}g by ${dayjs(target?.dateTime).calendar(null, {
+    sameDay: "[today at] h:mm A",
+    nextDay: "[tomorrow at] h:mm A",
+  })}`;
+  console.log(target?.dateTime);
+  console.log(dayjs("2022-12-30T08:00:00").calendar());
 
-  const displayText = target ? `${target.weight}g by 8am today` : "No target set";
+  const removeTargetMutation = useRemoveTargetMutation(birdId);
+  const { isLoading } = removeTargetMutation;
 
   const addTarget = useCallback(() => {
     setShowForm(true);
   }, []);
 
+  const editTarget = useCallback(() => {
+    setShowForm(true);
+  }, []);
+
+  const removeTarget = useCallback(() => {
+    removeTargetMutation.mutate(birdId);
+  }, [birdId, removeTargetMutation.mutate]);
+
   const closeForm = useCallback(() => {
     setShowForm(false);
   }, []);
-
-  const clearTarget = useCallback(() => {
-    removeTarget(birdId);
-  }, [birdId]);
 
   return (
     <Paper variant="outlined" sx={{ padding: 1 }}>
@@ -39,10 +51,26 @@ export function Target(props: IProps) {
           Target
         </Typography>
 
-        {target && (
-          <IconButton size="small" aria-label="Remove target" onClick={clearTarget}>
-            <ClearIcon />
-          </IconButton>
+        {showTarget && (
+          <Box>
+            <IconButton
+              size="small"
+              aria-label="Edit target"
+              disabled={isLoading}
+              onClick={editTarget}
+              sx={{ mr: 1 }}
+            >
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              size="small"
+              aria-label="Remove target"
+              disabled={isLoading}
+              onClick={removeTarget}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         )}
       </Stack>
 
@@ -63,11 +91,7 @@ export function Target(props: IProps) {
         <TargetForm birdId={birdId} target={target} onCancel={closeForm} onSuccess={closeForm} />
       )}
 
-      {showTarget && (
-        <Typography>
-          {target.weight}g {dayjs(target.dateTime).format("ddd, MMM D, LT")}
-        </Typography>
-      )}
+      {showTarget && <Typography>{displayText}</Typography>}
     </Paper>
   );
 }

@@ -16,12 +16,17 @@ interface IData {
   weight: string;
 }
 
-const defaultValues: IData = { dateTime: "", weight: "" };
-
 export function TargetForm(props: IProps) {
   const { birdId, onCancel, onSuccess, target } = props;
   const updateTargetMutation = useUpdateTargetMutation(birdId);
   const { isLoading } = updateTargetMutation;
+
+  const defaultValues: IData = {
+    dateTime: target?.dateTime ? dayjs(target?.dateTime).format("YYYY-MM-DDTHH:mm:ss") : "",
+    weight: target?.weight.toString() ?? "",
+  };
+
+  console.log(dayjs(target?.dateTime).format("YYYY-MM-DDTHH:mm:ss"));
 
   const {
     control,
