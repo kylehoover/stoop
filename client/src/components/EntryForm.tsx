@@ -4,13 +4,11 @@ import { Controller, useForm } from "react-hook-form";
 import { useCallback } from "react";
 import { ITarget } from "@shared/types";
 import { IHaveFormHandlers } from "src/types";
-import { useUpdateTargetMutation } from "src/api";
 import { DateTimeInput } from "./DateTimeInput";
 import { NumericInput } from "./NumericInput";
 
 interface IProps extends IHaveFormHandlers<ITarget> {
   birdId: string;
-  target?: ITarget;
 }
 
 interface IData {
@@ -18,14 +16,13 @@ interface IData {
   weight: string;
 }
 
-export function TargetForm(props: IProps) {
-  const { birdId, onCancel, onSuccess, target } = props;
-  const updateTargetMutation = useUpdateTargetMutation(birdId);
-  const { isLoading } = updateTargetMutation;
+export function EntryForm(props: IProps) {
+  const { birdId, onCancel, onSuccess } = props;
+  const isLoading = false;
 
   const defaultValues: IData = {
-    dateTime: target?.dateTime ? dayjs(target?.dateTime).format("YYYY-MM-DDTHH:mm:ss") : "",
-    weight: target?.weight.toString() ?? "",
+    dateTime: dayjs().format("YYYY-MM-DDTHH:mm"),
+    weight: "",
   };
 
   const {
@@ -37,19 +34,8 @@ export function TargetForm(props: IProps) {
   const onSubmit = useCallback(
     async (data: IData) => {
       const { dateTime, weight } = data;
-
-      updateTargetMutation.mutate(
-        {
-          birdId,
-          target: {
-            dateTime: dayjs(dateTime).toISOString(),
-            weight: parseInt(weight, 10),
-          },
-        },
-        { onSuccess }
-      );
     },
-    [birdId, onSuccess, updateTargetMutation.mutate]
+    [birdId, onSuccess]
   );
 
   return (
@@ -57,22 +43,22 @@ export function TargetForm(props: IProps) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2} mb={2}>
           <Grid item xs={12} sm={6}>
-            <NumericInput
-              name="weight"
-              label="Target weight (grams)"
+            <DateTimeInput
+              name="dateTime"
+              label="Entry time"
               control={control as any}
               disabled={isLoading}
-              hasError={!!errors.weight}
+              hasError={!!errors.dateTime}
             />
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <DateTimeInput
-              name="dateTime"
-              label="Target time"
+            <NumericInput
+              name="weight"
+              label="Weight (grams)"
               control={control as any}
               disabled={isLoading}
-              hasError={!!errors.dateTime}
+              hasError={!!errors.weight}
             />
           </Grid>
         </Grid>

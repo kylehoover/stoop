@@ -17,13 +17,10 @@ export function Target(props: IProps) {
   const [showForm, setShowForm] = useState(false);
   const showAlert = !target && !showForm;
   const showTarget = target && !showForm;
-  // const displayText = `${target?.weight}g by ${dayjs(target?.dateTime).format("ddd, MMM D, LT")}`;
   const displayText = `${target?.weight}g by ${dayjs(target?.dateTime).calendar(null, {
     sameDay: "[today at] h:mm A",
     nextDay: "[tomorrow at] h:mm A",
   })}`;
-  console.log(target?.dateTime);
-  console.log(dayjs("2022-12-30T08:00:00").calendar());
 
   const removeTargetMutation = useRemoveTargetMutation(birdId);
   const { isLoading } = removeTargetMutation;
@@ -45,7 +42,7 @@ export function Target(props: IProps) {
   }, []);
 
   return (
-    <Paper variant="outlined" sx={{ padding: 1 }}>
+    <Paper variant="outlined" sx={{ height: "100%", padding: 1 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
         <Typography variant="h6" component="div">
           Target

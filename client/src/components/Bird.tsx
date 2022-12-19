@@ -61,7 +61,7 @@ export function Bird(props: IProps) {
         </Grid>
       </Grid>
 
-      <Entries entries={entries} />
+      <Entries birdId={id} entries={entries} />
     </Box>
   );
 }
